@@ -1,7 +1,23 @@
-import { useState } from "react";
+import { useState, useLayoutEffect } from "react";
 
 export const App = () => {
   const [theme, setTheme] = useState("light");
+
+  useLayoutEffect(()=>{
+
+    document.body.className = theme;
+    
+
+  },[theme])
+
+  const toggleTheme = ()=>{
+    setTheme((prev) =>
+    (prev === "light" ? "dark" : "light")
+  
+
+    )
+
+  }
 
   const lightPoem = `
   In realms where light does softly tread,
@@ -27,12 +43,15 @@ export const App = () => {
   return (
     <div className="App">
       Hello Coders!
-      <div>
+      <hr />
+      <button onClick={toggleTheme}>{theme}</button>
+
+      <div className={`light-container ${theme === "light" ? "" : "hidden"}`}>
         <h4>Light Poem</h4>
         <p>{lightPoem}</p>
       </div>
       <hr />
-      <div>
+      <div className={`dark-container ${theme === "dark" ? "" : "hidden"}`}>
         <h4>Dark Poem</h4>
         <p>{darkPoem}</p>
       </div>
